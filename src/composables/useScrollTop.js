@@ -1,11 +1,11 @@
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref, onMounted, onUnmounted, unref } from 'vue';
 
 export function useScrollTop(threshold = 300) {
   const isVisible = ref(false);
 
   const checkScroll = () => {
     if (typeof window !== 'undefined') {
-      isVisible.value = window.scrollY > threshold;
+      isVisible.value = window.scrollY > unref(threshold);
     }
   };
 

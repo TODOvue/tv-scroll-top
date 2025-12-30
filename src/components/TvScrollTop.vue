@@ -1,6 +1,6 @@
 <script setup>
 import { useScrollTop } from '../composables/useScrollTop';
-import { computed } from 'vue';
+import { computed, toRef } from 'vue';
 
 const props = defineProps({
   threshold: {
@@ -14,7 +14,7 @@ const props = defineProps({
   }
 });
 
-const { isVisible, scrollToTop } = useScrollTop(props.threshold);
+const { isVisible, scrollToTop } = useScrollTop(toRef(props, 'threshold'));
 
 const positionClass = computed(() => `tv-scroll-top--${props.position}`);
 const transitionName = computed(() => `scroll-top-${props.position}`);

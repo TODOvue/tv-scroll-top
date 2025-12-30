@@ -1,0 +1,68 @@
+{
+  "name": "@todovue/tv-scroll-top",
+  "private": false,
+  "author": "Cristhian Daza",
+  "description": "A Vue 3 component to show a button that scrolls the page to the top when clicked.",
+  "license": "MIT",
+  "version": "0.0.0",
+  "type": "module",
+  "homepage": "https://ui.todovue.blog/scrolltop",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TODOvue/tv-scroll-top.git"
+  },
+  "bugs": {
+    "url": "https://github.com/TODOvue/tv-scroll-top/issues"
+  },
+  "keywords": [
+    "todovue",
+    "front-end",
+    "web",
+    "vue",
+    "vuejs",
+    "vue-js",
+    "scroll-top",
+    "show-scroll-top",
+    "vue-scroll-top",
+    "vue-scroll-top-component"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/tv-scroll-top.es.js",
+      "require": "./dist/tv-scroll-top.cjs.js"
+    },
+    "./style.css": "./dist/tv-scroll-top.css",
+    "./nuxt": "./nuxt.js"
+  },
+  "main": "dist/tv-scroll-top.cjs.js",
+  "module": "dist/tv-scroll-top.es.js",
+  "types": "dist/tv-scroll-top.d.ts",
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md",
+    "nuxt.js"
+  ],
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "sideEffects": [
+    "*.css",
+    "*.scss",
+    "dist/*.css"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "build:demo": "cp README.md public/ && cp CHANGELOG.md public/ && VITE_BUILD_TARGET=demo vite build"
+  },
+  "peerDependencies": {
+    "vue": "^3.5.26"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.3",
+    "sass": "^1.97.1",
+    "vite": "^7.3.0",
+    "vite-plugin-dts": "^4.5.4"
+  }
+}

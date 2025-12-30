@@ -1,5 +1,5 @@
 import { createApp } from 'vue'
-import './style.css'
 import TvScrollTop from './demo/Demo.vue'
+import './style.scss'
 
 createApp(TvScrollTop).mount('#tv-scroll-top')

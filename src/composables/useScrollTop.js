@@ -1,11 +1,30 @@
-import { ref, onMounted, onUnmounted, unref } from 'vue';
+import { ref, onMounted, onUnmounted, unref, watch } from 'vue';
 
-export function useScrollTop(threshold = 300) {
+export function useScrollTop(threshold = 300, showOnScrollUp = false) {
   const isVisible = ref(false);
+  const lastScrollY = ref(0);
 
   const checkScroll = () => {
     if (typeof window !== 'undefined') {
-      isVisible.value = window.scrollY > unref(threshold);
+      const currentScrollY = window.scrollY;
+      const thresholdVal = unref(threshold);
+      const showOnScrollUpVal = unref(showOnScrollUp);
+
+      const isPastThreshold = currentScrollY > thresholdVal;
+      const isScrollingUp = currentScrollY < lastScrollY.value;
+      const isScrollingDown = currentScrollY > lastScrollY.value;
+
+      if (showOnScrollUpVal) {
+        if (isScrollingUp && isPastThreshold) {
+          isVisible.value = true;
+        } else if (isScrollingDown || !isPastThreshold) {
+          isVisible.value = false;
+        }
+      } else {
+        isVisible.value = isPastThreshold;
+      }
+
+      lastScrollY.value = currentScrollY;
     }
   };
 
@@ -15,12 +34,16 @@ export function useScrollTop(threshold = 300) {
         top: 0,
         behavior: 'smooth'
       });
+      if (unref(showOnScrollUp)) {
+        isVisible.value = false;
+      }
     }
   };
 
   onMounted(() => {
     if (typeof window !== 'undefined') {
-      window.addEventListener('scroll', checkScroll);
+      lastScrollY.value = window.scrollY;
+      window.addEventListener('scroll', checkScroll, { passive: true });
       checkScroll();
     }
   });
@@ -30,6 +53,10 @@ export function useScrollTop(threshold = 300) {
       window.removeEventListener('scroll', checkScroll);
     }
   });
+
+  watch([() => unref(threshold), () => unref(showOnScrollUp)], () => {
+    checkScroll();
+  }, { immediate: true });
 
   return {
     isVisible,

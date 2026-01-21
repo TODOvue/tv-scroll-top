@@ -4,6 +4,7 @@ import LowThreshold from './demos/low-threshold.vue?raw';
 import HighThreshold from './demos/high-threshold.vue?raw';
 import LeftCustomThreshold from './demos/left-custom-threshold.vue?raw';
 import VeryHighThreshold from './demos/very-high-threshold.vue?raw';
+import ScrollUpOnly from './demos/scroll-up-only.vue?raw';
 
 export const demos = [
   {
@@ -63,5 +64,15 @@ export const demos = [
       threshold: 1000,
     },
     html: VeryHighThreshold,
+  },
+  {
+    id: 7,
+    title: 'Show on Scroll Up Only',
+    description: 'The button only appears when scrolling up. Perfect for avoiding content obstruction while the user is reading down the page.',
+    propsData: {
+      position: 'right',
+      showOnScrollUp: true,
+    },
+    html: ScrollUpOnly,
   },
 ];

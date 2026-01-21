@@ -11,10 +11,14 @@ const props = defineProps({
     type: String,
     default: 'right',
     validator: (value) => ['left', 'right'].includes(value)
+  },
+  showOnScrollUp: {
+    type: Boolean,
+    default: false
   }
 });
 
-const { isVisible, scrollToTop } = useScrollTop(toRef(props, 'threshold'));
+const { isVisible, scrollToTop } = useScrollTop(toRef(props, 'threshold'), toRef(props, 'showOnScrollUp'));
 
 const positionClass = computed(() => `tv-scroll-top--${props.position}`);
 const transitionName = computed(() => `scroll-top-${props.position}`);

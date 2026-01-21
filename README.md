@@ -16,12 +16,11 @@ A lightweight, customizable Vue 3 "scroll to top" button component with smooth a
 
 > Demo: https://ui.todovue.blog/scrolltop
 
----
 ## Table of Contents
 - [Features](#features)
 - [Installation](#installation)
 - [Quick Start (SPA)](#quick-start-spa)
-- [Nuxt 3 / SSR Usage](#nuxt-3--ssr-usage)
+- [Nuxt 4 / SSR Usage](#nuxt-4--ssr-usage)
 - [Component Registration Options](#component-registration-options)
 - [Props](#props)
 - [Composable API](#composable-api)
@@ -29,12 +28,10 @@ A lightweight, customizable Vue 3 "scroll to top" button component with smooth a
 - [Animations](#animations)
 - [Accessibility](#accessibility)
 - [SSR Notes](#ssr-notes)
-- [Roadmap](#roadmap)
 - [Development](#development)
 - [Contributing](#contributing)
 - [License](#license)
 
----
 ## Features
 - Smooth scroll to top with one click
 - Configurable visibility threshold (show button after X pixels scrolled)
@@ -48,7 +45,6 @@ A lightweight, customizable Vue 3 "scroll to top" button component with smooth a
 - Lightweight and tree-shakeable
 - TypeScript support
 
----
 ## Installation
 Using npm:
 ```bash
@@ -92,7 +88,6 @@ export default defineNuxtConfig({
 
 Then register the component in a plugin as shown in the [Nuxt 3 / SSR Usage](#nuxt-3--ssr-usage) section.
 
----
 ## Quick Start (SPA)
 Global registration (main.js / main.ts):
 ```js
@@ -126,8 +121,7 @@ import '@todovue/tv-scroll-top/style.css'
 ```
 **Note:** Don't forget to import the CSS in your main entry file as shown above.
 
----
-## Nuxt 3 / SSR Usage
+## Nuxt 4 / SSR Usage
 First, add the module to your `nuxt.config.ts`:
 ```ts
 // nuxt.config.ts
@@ -171,7 +165,6 @@ import { TvScrollTop } from '@todovue/tv-scroll-top'
 </script>
 ```
 
----
 ## Component Registration Options
 | Approach                                                                 | When to use                                    |
 |--------------------------------------------------------------------------|------------------------------------------------|
@@ -179,12 +172,12 @@ import { TvScrollTop } from '@todovue/tv-scroll-top'
 | Local named import `{ TvScrollTop }`                                     | Isolated / code-split contexts                 |
 | Direct default import `import TvScrollTop from '@todovue/tv-scroll-top'` | Single usage or manual registration            |
 
----
 ## Props
-| Prop      | Type   | Default | Description                                                                 |
-|-----------|--------|---------|-----------------------------------------------------------------------------|
-| threshold | Number | 300     | Scroll position (in pixels) after which the button becomes visible.         |
-| position  | String | 'right' | Position of the button: `'left'` or `'right'`.                              |
+| Prop           | Type    | Default | Description                                                                 |
+|----------------|---------|---------|-----------------------------------------------------------------------------|
+| threshold      | Number  | 300     | Scroll position (in pixels) after which the button becomes visible.         |
+| position       | String  | 'right' | Position of the button: `'left'` or `'right'`.                              |
+| showOnScrollUp | Boolean | false   | When true, the button only appears when scrolling up (not down).            |
 
 ### Prop Details
 
@@ -208,22 +201,37 @@ Example:
 <TvScrollTop position="left" />
 ```
 
----
+#### `showOnScrollUp`
+Controls whether the button should only appear when the user is scrolling up. When enabled, the button will hide when scrolling down and show when scrolling up (as long as the threshold is met).
+
+Accepted values:
+- `false` - Button shows whenever scroll position exceeds threshold (default behavior)
+- `true` - Button only shows when scrolling up AND scroll position exceeds threshold
+
+Example:
+```vue
+<!-- Button appears only when scrolling up -->
+<TvScrollTop :show-on-scroll-up="true" />
+```
+
+This is particularly useful for a better user experience, as the button won't obstruct content while the user is reading down the page.
+
 ## Composable API
 TvScrollTop includes a composable `useScrollTop` that you can use to build custom scroll-to-top functionality.
 
-### `useScrollTop(threshold)`
+### `useScrollTop(threshold, showOnScrollUp)`
 ```js
 import { useScrollTop } from '@todovue/tv-scroll-top'
 
-const { isVisible, scrollToTop } = useScrollTop(300)
+const { isVisible, scrollToTop } = useScrollTop(300, false)
 ```
 
 **Parameters:**
 - `threshold` (Number|Ref): Scroll position in pixels (default: 300)
+- `showOnScrollUp` (Boolean|Ref): Whether to show the button only when scrolling up (default: false)
 
 **Returns:**
-- `isVisible` (Ref<Boolean>): Reactive boolean indicating if scroll position is past the threshold
+- `isVisible` (Ref<Boolean>): Reactive boolean indicating if scroll position is past the threshold (and scrolling direction if enabled)
 - `scrollToTop` (Function): Function to smoothly scroll to the top of the page
 
 **Example:**
@@ -231,7 +239,7 @@ const { isVisible, scrollToTop } = useScrollTop(300)
 <script setup>
 import { useScrollTop } from '@todovue/tv-scroll-top'
 
-const { isVisible, scrollToTop } = useScrollTop(400)
+const { isVisible, scrollToTop } = useScrollTop(400, true)
 </script>
 
 <template>
@@ -241,7 +249,6 @@ const { isVisible, scrollToTop } = useScrollTop(400)
 </template>
 ```
 
----
 ## Usage Examples
 
 ### Default (Right Position, 300px Threshold)
@@ -318,12 +325,31 @@ import '@todovue/tv-scroll-top/style.css'
 </template>
 ```
 
+### Show Only When Scrolling Up
+The button only appears when the user scrolls up, preventing content obstruction while reading down the page.
+```vue
+<script setup>
+import { TvScrollTop } from '@todovue/tv-scroll-top'
+import '@todovue/tv-scroll-top/style.css'
+</script>
+
+<template>
+  <div>
+    <div style="height: 2000px">
+      <!-- Your content -->
+    </div>
+    
+    <TvScrollTop :show-on-scroll-up="true" />
+  </div>
+</template>
+```
+
 ### Custom Implementation with Composable
 ```vue
 <script setup>
 import { useScrollTop } from '@todovue/tv-scroll-top'
 
-const { isVisible, scrollToTop } = useScrollTop(200)
+const { isVisible, scrollToTop } = useScrollTop(200, true)
 
 const handleClick = () => {
   scrollToTop()
@@ -365,7 +391,6 @@ const handleClick = () => {
 </style>
 ```
 
----
 ## Animations
 TvScrollTop includes beautiful built-in animations that differ based on position:
 
@@ -385,7 +410,6 @@ TvScrollTop includes beautiful built-in animations that differ based on position
 
 Animations are implemented using Vue's `<Transition>` component and CSS keyframes.
 
----
 ## Accessibility
 - **ARIA Label**: Button includes `aria-label="Scroll to top"` for screen readers
 - **Keyboard Support**: Fully keyboard accessible (can be focused and activated with Enter/Space)
@@ -393,7 +417,6 @@ Animations are implemented using Vue's `<Transition>` component and CSS keyframe
 - **Semantic HTML**: Uses proper `<button>` element
 - **SVG Icon**: Uses semantic SVG with proper stroke and viewBox attributes
 
----
 ## SSR Notes
 - **SSR-Safe**: No direct `window`/`document` access during module evaluation
 - **Smart Guards**: Uses `typeof window !== 'undefined'` checks
@@ -402,19 +425,6 @@ Animations are implemented using Vue's `<Transition>` component and CSS keyframe
 - **Nuxt 3 Compatible**: Works seamlessly with Nuxt 3 out of the box
 - **Hydration Safe**: No hydration mismatches
 
----
-## Roadmap
-| Item                                  | Status      |
-|---------------------------------------|-------------|
-| Custom icon slot                      | Planned     |
-| Size variants (small, medium, large)  | Considering |
-| Color/theme customization props       | Considering |
-| Multiple scroll behaviors (instant)   | Considering |
-| Offset from edges prop                | Considering |
-| Hide on scroll down feature           | Considering |
-| Progress indicator variant            | Considering |
-
----
 ## Development
 ```bash
 git clone https://github.com/TODOvue/tv-scroll-top.git
@@ -425,14 +435,11 @@ npm run build   # build library
 ```
 Local demo served from Vite using `index.html` and demo examples in `src/demo`.
 
----
 ## Contributing
 PRs and issues welcome. See [CONTRIBUTING.md](./CONTRIBUTING.md) and [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md).
 
----
 ## License
 MIT © TODOvue
 
----
 ### Attributions
 Crafted for the TODOvue component ecosystem

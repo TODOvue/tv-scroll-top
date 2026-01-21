@@ -1,11 +1,22 @@
 import { ref, onMounted, onUnmounted, unref } from 'vue';
 
-export function useScrollTop(threshold = 300) {
+export function useScrollTop(threshold = 300, showOnScrollUp = false) {
   const isVisible = ref(false);
+  const lastScrollY = ref(0);
 
   const checkScroll = () => {
     if (typeof window !== 'undefined') {
-      isVisible.value = window.scrollY > unref(threshold);
+      const currentScrollY = window.scrollY;
+      const isScrollingUp = currentScrollY < lastScrollY.value;
+      const isPastThreshold = currentScrollY > unref(threshold);
+      
+      if (unref(showOnScrollUp)) {
+        isVisible.value = isPastThreshold && isScrollingUp;
+      } else {
+        isVisible.value = isPastThreshold;
+      }
+      
+      lastScrollY.value = currentScrollY;
     }
   };
 

@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.2] - 2026-01-21
 
+### Added
+- New `showOnScrollUp` prop to only display the button when scrolling up
+- Scroll direction detection in `useScrollTop` composable
+
 ### Dependencies
 - Updated `@todovue/tv-demo` to `^1.4.4`.
 - Updated `sass` to `^1.97.2`.

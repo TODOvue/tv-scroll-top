@@ -1,6 +1,7 @@
 <script setup>
 import { defineAsyncComponent } from 'vue'
 import { demos } from './utils/mocks.js'
+import { TvDemo } from '@todovue/tv-demo'
 
 const TvScrollTop = defineAsyncComponent(/* webpackChunkName: "tvScrollTop" */() => import('../components/TvScrollTopDemo.vue'))
 </script>
@@ -14,10 +15,6 @@ const TvScrollTop = defineAsyncComponent(/* webpackChunkName: "tvScrollTop" */()
     npm-install="@todovue/tv-scroll-top"
     source-link="https://github.com/TODOvue/tv-scroll-top"
     url-clone="https://github.com/TODOvue/tv-scroll-top.git"
-    version="1.0.0"
+    version="1.0.3"
   />
 </template>
-
-<style scoped>
-
-</style>

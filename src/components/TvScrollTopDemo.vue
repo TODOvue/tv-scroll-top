@@ -81,6 +81,7 @@ defineProps({
   font-family: system-ui, -apple-system, sans-serif;
   line-height: 1.6;
   color: #333;
+  max-height: 300px;
 }
 
 .demo-header {

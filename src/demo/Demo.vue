@@ -15,6 +15,6 @@ const TvScrollTop = defineAsyncComponent(/* webpackChunkName: "tvScrollTop" */()
     npm-install="@todovue/tv-scroll-top"
     source-link="https://github.com/TODOvue/tv-scroll-top"
     url-clone="https://github.com/TODOvue/tv-scroll-top.git"
-    version="1.0.3"
+    version="1.0.4"
   />
 </template>

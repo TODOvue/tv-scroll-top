@@ -34,9 +34,6 @@ export function useScrollTop(threshold = 300, showOnScrollUp = false) {
         top: 0,
         behavior: 'smooth'
       });
-      if (unref(showOnScrollUp)) {
-        isVisible.value = false;
-      }
     }
   };
 

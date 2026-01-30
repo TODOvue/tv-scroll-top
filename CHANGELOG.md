@@ -5,6 +5,11 @@ All notable changes to `@todovue/tv-scroll-top` will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.4] - 2026-01-30
+
+### Changed
+- Removed the unnecessary visibility toggle functionality during page scrolling.
+
 ## [1.0.3] - 2026-01-27
 
 ### Changed
@@ -64,6 +69,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - CommonJS build for compatibility
 - Comprehensive documentation and examples
 
+[1.0.4]: https://github.com/TODOvue/tv-scroll-top/pull/4/files
 [1.0.3]: https://github.com/TODOvue/tv-scroll-top/pull/3/files
 [1.0.2]: https://github.com/TODOvue/tv-scroll-top/pull/2/files
 [1.0.0]: https://github.com/TODOvue/tv-scroll-top/pull/1/files
